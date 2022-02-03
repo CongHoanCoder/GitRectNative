@@ -126,16 +126,22 @@ const TabContent = (props) => {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <NeuView color="#eef2f9" height={50} width={50} borderRadius={25}>
+            <TouchableOpacity>
+            <NeuView color="#eef2f9" height={50} width={50} borderRadius={25}>
             <Feather name={'user'} size={25} color={'#fc6767'} />
           </NeuView>
+            </TouchableOpacity>
+          
           <Text style={{fontWeight: 'bold', fontSize: 30}}> Weather </Text>
+          <TouchableOpacity>
           <NeuView color="#eef2f9" height={50} width={50} borderRadius={25}>
             <View style ={{marginLeft: 2}}>
-            <Ionicons name={'add-circle-outline'} size={40} color={'#fc6767'} />
+            <Ionicons name={'refresh-circle-outline'} size={40} color={'#fc6767'} />
             </View>
             
           </NeuView>
+          </TouchableOpacity>
+          
         </View>
         {/* SECTION 1 */}
         <View style={{alignSelf: 'center', marginTop: '5%'}}>
