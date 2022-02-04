@@ -84,12 +84,12 @@ const App = () => {
 const TabHeader = (props) => {return (
   <>
   {weatherInfo.currentTab === props.currentTab? (<TouchableOpacity>
-    <NeuView color="#eef2f9" height={45} width={props.width} borderRadius={20} concave>
+    <NeuView color="#eef2f9" height={40} width={props.width} borderRadius={20} concave>
       <Text style ={{fontWeight:"bold", fontSize: 18, color: "#ec008c"}}> {props.text} </Text>
   </NeuView>
   </TouchableOpacity>):(
     <TouchableOpacity onPress={()=> setweatherInfo({...weatherInfo, currentTab: props.currentTab})}>
-    <NeuView color="#eef2f9" height={45} width={props.width} borderRadius={20} concave>
+    <NeuView color="#eef2f9" height={40} width={props.width} borderRadius={20} concave>
       <Text style ={{fontWeight:"bold", fontSize: 18, color: "gray"}}> {props.text} </Text>
   </NeuView>
   </TouchableOpacity>
@@ -158,7 +158,7 @@ const TabContent = (props) => {
         {/* SECTION 3 */}
         <View style= {{width: "100%", flexDirection: "row", justifyContent:"space-between", alignItems: "center", marginTop: "5%"}}>
         
-          <TabHeader text = {"Today"} width = {80} currentTab ={0}/>
+          <TabHeader text = {"Today"} width = {70} currentTab ={0}/>
           <TabHeader text = {"Tomorrow"} width = {110} currentTab ={1}/>
           <TabHeader text = {"7 days Forcast"} width = {140} currentTab ={2}/>
         </View>
