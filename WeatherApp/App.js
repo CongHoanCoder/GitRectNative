@@ -81,6 +81,21 @@ const App = () => {
         ],
     },
 });
+const [weatherData,setWeatherData] = React.useState(null);
+React.useEffect(()=>{
+fetch("http://api.weatherapi.com/v1/current.json?key=9189b9ca1bf4480ebd5154721220502&q=Seoul&aqi=no")
+.then(res => {
+  
+  return res.json();
+}).then(data => {
+  setWeatherData(data);
+  //console.log(weatherData.current);
+})
+console.log("Effect function");
+
+
+},[]);
+
 const TabHeader = (props) => {return (
   <>
   {weatherInfo.currentTab === props.currentTab? (<TouchableOpacity>
@@ -101,16 +116,18 @@ const TabHeader = (props) => {return (
 );}
 
 const TabContent = (props) => {
+  console.log("Tab content");
+  console.log(props.weatherInfo);
   return (
       <View style={{alignItems: 'center'}}>
-          <Text style={{fontSize: 20, color: 'grey', fontWeight: '600', textAlign: 'center'}}>{props.weatherInfo.desc}</Text>
+          <Text style={{fontSize: 20, color: 'grey', fontWeight: '600', textAlign: 'center'}}>{props.weatherInfo.condition.text}</Text>
           <Feather
-              name={props.weatherInfo.weather == 'Sunny' ? 'sun' : 'cloud-drizzle'}
+              name={props.weatherInfo.condition.text== 'Sunny' ? 'sun' : 'cloud-drizzle'}
               size={50}
-              color={props.weatherInfo.weather == 'Sunny' ? '#fc6767' : '#ec008c'}
+              color={props.weatherInfo.condition.text == 'Sunny' ? '#fc6767' : '#ec008c'}
               style={{marginVertical: 20}}
           />
-          <Text style={{fontSize: 22, color: 'black', fontWeight: 'bold'}}>{props.weatherInfo.temperature}</Text>
+          <Text style={{fontSize: 22, color: 'black', fontWeight: 'bold'}}>{props.weatherInfo.temp_c + "°c"}</Text>
       </View>
   );
 };
@@ -152,8 +169,8 @@ const TabContent = (props) => {
 
         {/* SECTION 2 */}
         <View style= {{alignSelf: "center", alignItems: "center", marginTop: "5%"}}>
-          <Text style ={{fontWeight:"bold", fontSize: 20, color: "black"}}> {weatherInfo.weatherInfo.today.temperature}</Text>
-          <Text style ={{fontWeight:"500", fontSize: 20}}> {weatherInfo.weatherInfo.location}</Text>
+          {weatherData && <Text style ={{fontWeight:"bold", fontSize: 20, color: "black"}}> {weatherData.current.temp_c + "°c"}</Text>}
+          {weatherData && <Text style ={{fontWeight:"500", fontSize: 20}}> {weatherData.location.name}</Text>}
         </View>
         {/* SECTION 3 */}
         <View style= {{width: "100%", flexDirection: "row", justifyContent:"space-between", alignItems: "center", marginTop: "5%"}}>
@@ -165,8 +182,8 @@ const TabContent = (props) => {
         {/* SECTION 4 */}
         <View style={{alignSelf: 'center', marginTop: '5%', alignItems: 'center'}}>
         <NeuView color={'#eef2f9'} height={220} width={180} borderRadius={40} concave>
-            {weatherInfo.currentTab == 0 && <TabContent weatherInfo={weatherInfo.weatherInfo.today} />}
-            {weatherInfo.currentTab == 1 && <TabContent weatherInfo={weatherInfo.weatherInfo.tomorrow} />}
+            {weatherData && weatherInfo.currentTab == 0 && <TabContent weatherInfo={weatherData.current} />}
+            {/* {weatherInfo.currentTab == 1 && <TabContent weatherInfo={weatherInfo.weatherInfo.tomorrow} />}
             {weatherInfo.currentTab == 2 && (
                                 <View>
                                     {weatherInfo.weatherInfo.sevenDayForcast.map((item, index) => {
@@ -192,7 +209,7 @@ const TabContent = (props) => {
                                         );
                                     })}
                                 </View>
-                            )}
+                            )} */}
          </NeuView>
         </View>
        {/* SECTION 5 */}
