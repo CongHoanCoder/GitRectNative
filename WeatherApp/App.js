@@ -95,7 +95,16 @@ console.log("Effect function");
 
 
 },[]);
-
+const RefreshData = ()=>{
+  fetch("http://api.weatherapi.com/v1/current.json?key=9189b9ca1bf4480ebd5154721220502&q=Seoul&aqi=no")
+.then(res => {
+  
+  return res.json();
+}).then(data => {
+  setWeatherData(data);
+  //console.log(weatherData.current);
+})
+};
 const TabHeader = (props) => {return (
   <>
   {weatherInfo.currentTab === props.currentTab? (<TouchableOpacity>
@@ -150,7 +159,7 @@ const TabContent = (props) => {
             </TouchableOpacity>
           
           <Text style={{fontWeight: 'bold', fontSize: 30}}> Weather </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=> RefreshData()}>
           <NeuView color="#eef2f9" height={50} width={50} borderRadius={25}>
             <View style ={{marginLeft: 2}}>
             <Ionicons name={'refresh-circle-outline'} size={40} color={'#fc6767'} />
@@ -218,21 +227,21 @@ const TabContent = (props) => {
                         <View style={{width: '100%', flexDirection: 'row', height: 40, marginTop: '1%'}}>
                             <View style={{flex: 1, flexDirection: 'row'}}>
                                 <Text style={{...styles.addnInfoTxt, color: 'black'}}>Wind</Text>
-                                <Text style={{...styles.addnInfoTxt, color: 'grey'}}> {weatherInfo.weatherInfo.wind}</Text>
+                              {weatherData && <Text style={{...styles.addnInfoTxt, color: 'grey'}}> {weatherData.current.wind_kph + " km/h"}</Text>}
                             </View>
                             <View style={{flex: 1, flexDirection: 'row'}}>
                                 <Text style={{...styles.addnInfoTxt, color: 'black'}}>Humidity</Text>
-                                <Text style={{...styles.addnInfoTxt, color: 'grey'}}> {weatherInfo.weatherInfo.humidity}</Text>
+                              {weatherData && <Text style={{...styles.addnInfoTxt, color: 'grey'}}> {weatherData.current.humidity + " %"}</Text>}
                             </View>
                         </View>
                         <View style={{width: '100%', flexDirection: 'row', height: 40}}>
                             <View style={{flex: 1, flexDirection: 'row'}}>
                                 <Text style={{...styles.addnInfoTxt,color: 'black'}}>Visibility</Text>
-                                <Text style={{...styles.addnInfoTxt, color: 'grey'}}> {weatherInfo.weatherInfo.visibility}</Text>
+                                {weatherData &&<Text style={{...styles.addnInfoTxt, color: 'grey'}}> {weatherData.current.vis_km + " km"}</Text>}
                             </View>
                             <View style={{flex: 1, flexDirection: 'row'}}>
                                 <Text style={{...styles.addnInfoTxt,color: 'black'}}>UV</Text>
-                                <Text style={{...styles.addnInfoTxt, color: 'grey'}}> {weatherInfo.weatherInfo.uv}</Text>
+                                {weatherData &&<Text style={{...styles.addnInfoTxt, color: 'grey'}}> {weatherData.current.uv}</Text>}
                             </View>
                         </View>
                     </View>
