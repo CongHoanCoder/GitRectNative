@@ -1,0 +1,2 @@
+convert SVG to js Component
+https://react-svgr.com/playground/?native=true
