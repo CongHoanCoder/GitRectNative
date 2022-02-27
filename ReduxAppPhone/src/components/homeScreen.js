@@ -10,7 +10,6 @@ const HomeScreen = () => {
     const account = useSelector((state) => state.bank);
     const data = useSelector((state) => state.dataReducer);
     const accountDispatch = useDispatch();
-  //const dataDispatch = useDispatch();
   const { depositMoney, withdrawMoney } = bindActionCreators(actionCreators, accountDispatch);
   const dataDispatch = useDispatch();
   const { getData } = bindActionCreators(dataActionCreators, dataDispatch);
