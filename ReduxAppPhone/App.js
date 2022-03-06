@@ -35,7 +35,6 @@ const App = ()  => {
   return (
     <Provider store = {store}>
     <View style = {styles.container}>
-   
       <HomeScreen />
  
     </View>
